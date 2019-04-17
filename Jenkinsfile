@@ -39,16 +39,16 @@ pipeline {
       steps {
         script {
           stamp.cloneLastStableVersion("oldVersion")
-        }
-        if (fileExists("${WORKSPACE}/oldVersion/tavern")){
-          withMaven(maven: 'maven3', jdk: 'JDK8') {  
-            sh "mvn clean eu.stamp-project:dspot-diff-test-selection:list -Dpath-dir-second-version=${WORKSPACE}/oldVersion/tavern"
-            sh "mvn eu.stamp-project:dspot-maven:amplify-unit-tests -Dpath-to-test-list-csv=testsThatExecuteTheChange.csv -Dverbose -Dtest-criterion=ChangeDetectorSelector -Damplifiers=NumberLiteralAmplifier -Diteration=2"
+            if (fileExists("${WORKSPACE}/oldVersion/tavern")){
+              withMaven(maven: 'maven3', jdk: 'JDK8') {  
+                sh "mvn clean eu.stamp-project:dspot-diff-test-selection:list -Dpath-dir-second-version=${WORKSPACE}/oldVersion/tavern"
+                sh "mvn eu.stamp-project:dspot-maven:amplify-unit-tests -Dpath-to-test-list-csv=testsThatExecuteTheChange.csv -Dverbose -Dtest-criterion=ChangeDetectorSelector -Damplifiers=NumberLiteralAmplifier -Diteration=2"
+              }
+            }
           }
         }
+      }
     }
-  }
-  }
    environment {
     GIT_URL = sh (script: 'git config remote.origin.url', returnStdout: true).trim().replaceAll('https://','')
   }
