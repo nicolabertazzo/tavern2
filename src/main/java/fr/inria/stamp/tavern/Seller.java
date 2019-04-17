@@ -18,22 +18,16 @@ public class Seller {
 		this.items = itemsToSell;
 	}
 
-	public Item sellItem(String s, Player p) {
-		Item i = null;
-		for (int i2 = 0; i2 < this.items.size(); i2++) {
-			final Item i3 = this.items.get(i2);
-			if (i3.name.equals(s)) {
-				i = i3;
-			}
-		}
-		if (i != null) {
-			final Integer g_p = p.getGold();
-			final int value = g_p.compareTo(i.price);
-			if (value >= 0) {
-				this.gold = this.gold + i.price;
-				p.giveGold(i.price);
-				return i;
-			}
+	public Item sellItem(String name, Player player) {
+		final Item itemToSell = this.items.stream()
+				.filter(item -> item.name.equals(name))
+				.findFirst()
+				.orElse(null);
+		if (itemToSell != null &&
+				player.getGold() > itemToSell.price) {
+			this.gold = this.gold + itemToSell.price;
+			player.giveGold(itemToSell.price);
+			return itemToSell;
 		}
 		return null;
 	}
