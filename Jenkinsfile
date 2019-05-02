@@ -8,6 +8,10 @@ pipeline {
         withMaven(maven: 'maven3', jdk: 'JDK8') {
           sh "mvn clean compile"
         }
+        script {
+          def ghc = new eu.stamp.ci.GitHubClient()
+          ghc.createPullRequest()
+        }
       }
     }
 
