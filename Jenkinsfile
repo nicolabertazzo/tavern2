@@ -44,7 +44,7 @@ pipeline {
     stage('Amplify') {
       steps {
         script {
-          stamp.cloneLastStableVersion("oldVersion")
+          stamp.cloneCommitVersion("${GIT_PREVIOUS_SUCCESSFUL_COMMIT}", "oldVersion")
             if (fileExists("${WORKSPACE}/oldVersion/src")){
               withMaven(maven: 'maven3', jdk: 'JDK8') {  
                 sh "mvn clean eu.stamp-project:dspot-diff-test-selection:list -Dpath-dir-second-version=${WORKSPACE}/oldVersion"
