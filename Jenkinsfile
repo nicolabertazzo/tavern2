@@ -7,7 +7,7 @@ pipeline {
       steps {
         withCredentials([usernamePassword(credentialsId: 'github', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]){
           script {
-            stamp.pullRequest("${GIT_PASSWORD}", "tavern", "nicolabertazzo", "prova pr", "prova pr", "prova", "master")
+            stamp.pullRequest("${GIT_PASSWORD}", "tavern", "nicolabertazzo", "prova pr", "prova pr", "prova", "master", "proxy.eng.it", 3128)
           }
 	      }
         sh 'printenv'
