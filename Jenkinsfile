@@ -5,7 +5,7 @@ pipeline {
   stages {
     stage('Compile') {
       steps {
-        withCredentials([usernamePassword(credentialsId: 'github', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]){
+        withCredentials([usernamePassword(credentialsId: 'id-prova-tk', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]){
           echo "USERNAME: ${GIT_USERNAME}"
           echo "PASSWORD: ${GIT_PASSWORD}"
 	      }
