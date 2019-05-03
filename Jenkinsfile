@@ -5,16 +5,13 @@ pipeline {
   stages {
     stage('Compile') {
       steps {
-        withCredentials([usernamePassword(credentialsId: 'id-prova-tk', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]){
-          echo "USERNAME: ${GIT_USERNAME}"
-          echo "PASSWORD: ${GIT_PASSWORD}"
+        withCredentials([usernamePassword(credentialsId: 'github', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]){
+          stamp.pullRequest("${GIT_PASSWORD}", "tavern", "nicolabertazzo", "prova pr",
+			"prova pr", "master", "master")
 	      }
         sh 'printenv'
         withMaven(maven: 'maven3', jdk: 'JDK8') {
           sh "mvn clean compile"
-        }
-        script {
-          stamp.pullRequest();
         }
       }
     }
