@@ -5,6 +5,7 @@ pipeline {
   stages {
     stage('Compile') {
       steps {
+        sh 'printenv'
         withMaven(maven: 'maven3', jdk: 'JDK8') {
           sh "mvn clean compile"
         }
