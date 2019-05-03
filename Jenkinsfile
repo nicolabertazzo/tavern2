@@ -8,7 +8,9 @@ pipeline {
         withMaven(maven: 'maven3', jdk: 'JDK8') {
           sh "mvn clean compile"
         }
-        stamp.pullRequest();
+        script {
+          stamp.pullRequest();
+        }
       }
     }
 
