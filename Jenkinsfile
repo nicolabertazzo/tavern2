@@ -5,6 +5,9 @@ pipeline {
   stages {
     stage('Compile') {
       steps {
+        withCredentials([usernamePassword(credentialsId: 'github', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]){
+          echo "${GIT_USERNAME}"
+	      }
         sh 'printenv'
         withMaven(maven: 'maven3', jdk: 'JDK8') {
           sh "mvn clean compile"
