@@ -5,12 +5,6 @@ pipeline {
   stages {
     stage('Compile') {
       steps {
-        withCredentials([usernamePassword(credentialsId: 'github', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]){
-          script {
-            stamp.pullRequest("${GIT_PASSWORD}", "tavern", "nicolabertazzo", "prova pr", "prova pr", "prova", "master", "proxy.eng.it", 3128)
-          }
-	      }
-        sh 'printenv'
         withMaven(maven: 'maven3', jdk: 'JDK8') {
           sh "mvn clean compile"
         }
