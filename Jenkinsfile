@@ -9,5 +9,10 @@ pipeline {
 
       }
     }
+    stage('run dspot') {
+      steps {
+        dspot(mvnHome: '/var/jenkins_home/tools/hudson.tasks.Maven_MavenInstallation/maven339')
+      }
+    }
   }
 }
